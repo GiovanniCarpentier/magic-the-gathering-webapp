@@ -1,0 +1,47 @@
+@using mtg_lib.Library.Models;
+@model mtg_app.Models.ShoppingCartViewModel;
+@{
+    ViewData["Title"] = "My Shoppingcart";
+    double totalPrice = 0
+;}
+
+<div class="text-center">
+    <h1 class="display-4 font-weight-bold">MTG - My Shopping Cart</h1>
+</div>
+
+
+<div id="ShoppingCartContainer">
+    @if(Model.Cards.Count() > 0){
+        <table>
+            <thead>
+                <tr>
+                    <th>Card Name</th>
+                    <th>Price</th>
+                    <th>Remove Button</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var card in @Model.Cards)
+            {
+                <tr>
+                    <td>@card.Name</td>
+                    <td>€@card.Price</td>
+                    <td><a href="/ShoppingCart/remove/@card.Id">Remove</a></td>
+                </tr>
+
+                totalPrice += @card.Price;
+            }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Totale price</td>
+                    <td>€ @(Math.Round(totalPrice, 2))</td>
+                    <td><a href="/ShoppingCart/buy">Buy</a></td>
+                </tr>
+            </tfoot>
+        </table>
+    }else{
+        <h5 id="empty">No items in your shopping cart :(</h5>
+    }
+
+</div>

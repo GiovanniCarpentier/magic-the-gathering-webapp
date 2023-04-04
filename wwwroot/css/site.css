@@ -1,0 +1,136 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.pagination-nav{
+  padding: 2em;
+}
+
+.pages{
+  margin-left: 1em;
+}
+
+a.disabled {
+  color: gray;
+  pointer-events: none;
+}
+
+.inMyCollection{
+  background-color: rgb(33, 37, 41);
+  color: white;
+}
+
+.search {
+  padding: 2em;
+}
+
+.card a,#ShoppingCartContainer a{
+  text-decoration: none;
+  text-decoration: none;
+  background-color: #EEEEEE;
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+}
+
+
+.card a:active, #ShoppingCartContainer a:active{
+  background-color: #c0c0c0;
+}
+
+#CollectionContainer {
+  display: grid;
+  grid-template-columns: 75% 25% ;
+  grid-column-gap: 5rem;
+}
+
+#MyCollectionContainer {
+  display: grid;
+  grid-template-rows: 15%;
+  border: 1px solid black;
+  height: 60vh;
+  position: fixed;
+  left: 70%;
+  width: 25%;
+  background-color: white;
+}
+
+#MyCollectionContainer #MyCollectionHeader{
+  text-align: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  color: white;
+  font-size: 2rem;
+  box-sizing:border-box;
+}
+
+#MyCollectionContainer #MyCollectionHeader h5{
+  font-size: 2rem;
+}
+
+#MyCollectionCards{
+  border-top: 1px solid black;
+  overflow-y: auto;
+}
+
+.MyCollectionCard{
+  min-height: 10%;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.MyCollectionCard h5{
+  font-size: 1.5;
+  padding-top: 2.5% ;
+}
+
+#ShoppingCartContainer th{
+  background-color: rgb(33, 37, 41);
+  color: white;
+
+}
+
+#shoppingCartContainer tr:nth-child(even){
+  background-color: #a81c1c;
+}
+
+#ShoppingCartContainer table{
+  margin: 5rem auto 0 auto;
+}
+
+#ShoppingCartContainer table,th,td{
+  border: 1px solid rgb(33, 37, 41);
+}
+
+#ShoppingCartContainer th,td{
+  padding: 1rem;
+}
+
+#ShoppingCartContainer tfoot{
+  border-top: 3px solid rgb(33, 37, 41);
+}
+
+#empty{
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-top: 3.5rem;
+  text-align: center;
+}

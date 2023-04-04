@@ -1,0 +1,32 @@
+@model mtg_lib.Library.Models.Card
+@{
+    ViewData["Title"] = "Detail Page";
+    var Price = Math.Round(1.24 * int.Parse(Model.ConvertedManaCost) + 2.83, 2);
+}
+<h1 class="text-center">Card Details</h1>
+<hr/>
+<div class="container">
+<div class="row">
+    <div class="col text-center">
+        @if (@Model.OriginalImageUrl != null)
+                        {
+                            <img class="card-img-top" src="@Model.OriginalImageUrl" alt="@Model.Name">   
+                        }
+                        else
+                        {
+                            <img class="card-img-top" src="https://www.aqdmedical.com/wp-content/uploads/2016/01/pojo-placeholder-3.png" alt="@Model.Name">
+                        }
+    </div>
+    <div class="col">
+        <h2 class="font-weight-bold">@Model.Name</h2>
+        <p class="font-weight-bold"><b>Mana Cost:</b> @Model.ConvertedManaCost</p>
+        <p class="font-weight-bold"><b>Type:</b> @Model.Type</p>
+        <p class="font-weight-bold"><b>Rarity:</b> @Model.RarityCode</p>
+        <p class="font-weight-bold">@Model.Text</p>
+        <p class="font-weight-bold">@Model.Flavor</p>
+        <p class="font-weight-bold"><b>Power:</b> @Model.Power</p>
+        <p class="font-weight-bold"><b>Toughness:</b> @Model.Toughness</p>
+        <h3 class="font-weight-bold">€@Price</h3>
+    </div>
+</div>
+</div>

@@ -1,0 +1,123 @@
+@using mtg_lib.Library.Models;
+@model mtg_app.Models.CollectionViewModel
+@{
+    ViewData["Title"] = "My Collection";
+    var previous = @Model.Index - 1;
+    var next = @Model.Index + 1;
+    var className = "";
+    String[] ascdes = { "asc", "des" };
+
+}
+
+<script src="~/js/api.js" asp-append-version="true"></script>
+<script src="~/js/collection.js" asp-append-version="true"></script>
+
+<div class="text-center">
+    <h1 class="display-4 font-weight-bold">MTG - Manage Collection</h1>
+</div>
+
+<div class="text-center search">
+    @using (Html.BeginForm("FormSearch", "Collection", FormMethod.Post))
+                {
+                    @Html.TextBoxFor(m => m.Name, new { Class="form-control mx-sm-6", placeholder="Card name"})
+                }
+</div>
+<div>
+    @using (Html.BeginForm("FilterManaCostDirection", "Collection", FormMethod.Post))
+    {
+        <p>Mana cost</p>
+        @Html.DropDownListFor( m=>m.Direction, new SelectList(new List<SelectListItem>
+        {
+            new SelectListItem { Selected = true, Text = "Ascending", Value = "Ascending"},
+            new SelectListItem { Selected = false, Text = "Decending", Value = "Decending"},
+        }, "Value" , "Text", 1))
+        <input type="submit" value="Send Request">
+    }
+
+</div>
+<div>
+@using (Html.BeginForm("FilterManaCost", "Collection", FormMethod.Post))
+     {
+         @Html.TextBoxFor(m => m.Manacost, new { Class="form-control mx-sm-6", placeholder="Mana cost"})
+     }
+
+</div>
+
+<div id=CollectionContainer>
+
+    <div class="row row-cols-1 row-cols-md-5 g-4">
+        @foreach (var card in Model.Cards)
+        {
+            @if (@card.OriginalImageUrl != null)
+            {
+                @if(Model.Collection.Any(c => c.Id == card.Id)){
+                    className = "inMyCollection";
+                }else{
+                    className = "";
+                }
+
+                <div class="col">
+
+                    <div class="card @className" value="@card.Id">
+                        <img class="card-img-top" src="@card.OriginalImageUrl" alt="@card.Name">
+                        <div class="card-body">
+                            <h5 class="card-title">@card.Name</h5>
+                            <p class="card-text">@card.OriginalText</p>
+                            <p class="card-text"><small class="text-muted">@card.RarityCode</small></p>
+                            <p class="card-text"><small class="text-muted">€@card.Price</small></p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <div id="MyCollectionContainer">
+        <div id="MyCollectionHeader" class="navbar-dark bg-dark">
+            <h5>My Collection</h5>
+        </div>
+        <div id="MyCollectionCards">
+            @foreach (var card in Model.Collection)
+            {
+                <div class="MyCollectionCard" value="@card.Id">
+                    <h5>@card.Name</h5>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+
+<nav class="pagination-nav" aria-label="Pagination">
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+            @if (@Model.Index == 0)
+            {
+                <a class="page-link disabled" asp-controller="Collection" asp-action="" asp-route-index="@previous"> previous </a>
+            }
+            else
+            {
+                <a class="page-link" asp-controller="Collection" asp-action="" asp-route-index="@previous"> previous </a>
+            }
+        </li>
+        <li>
+            @using (Html.BeginForm("FormPagination", "Collection", FormMethod.Post))
+            {
+                @Html.TextBoxFor(m => m.Index)
+            }
+        </li>
+        <li class="page-item">
+            @if (@Model.Index == Model.Pages)
+            {
+                <a class="page-link disabled" asp-controller="Collection" asp-action="" asp-route-index="@next"> next </a>
+            }
+            else
+            {
+                <a class="page-link" asp-controller="Collection" asp-action="" asp-route-index="@next"> next </a>
+            }
+        </li>
+        <li class="page-item">
+            <p class="text-muted pages">Total pages - @Model.Pages</p>
+        </li>
+    </ul>
+</nav>
